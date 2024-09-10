@@ -11,7 +11,7 @@
 Configure y prompts for x entries in a single field.
 
 > [!IMPORTANT]
-> This project is being supported against bugs.
+> This project is work in progress.
 
 ## Get in touch
 You can reach me at github.venture089@passinbox.com
