@@ -4,7 +4,7 @@
 <br><br>
 
 > [!CAUTION]
-> [Read the License to Avoid Inconveniences]()
+> [Read the License to Avoid Inconveniences](https://github.com/kodo000/one-line?tab=License-1-ov-file)
 
 ## Info
 *One Line* is a component conceived and designed to avoid visually extensive forms and increase user productivity and efficiency.
