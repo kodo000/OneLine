@@ -23,7 +23,7 @@ function OneLine ({ prompts, onComplete }) {
       
       setPivot(0); // Reset pivot using setState
       setInputs([]); // Reset inputs using setState
-      prompts.length = 0; // pop all the elements of prompts
+      prompts.length = 0; // pop all the elements of prompts https://4geeks.com/how-to/javascript-array-clear
       assignBaseField(); // Add the base field to the prompts array
       return;
     }
