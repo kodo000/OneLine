@@ -1,61 +1,42 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
-function OneLine ({ propmts, onComplete }) {
-  const [inputs, setInputs] = useState([]);
-  const [currentPrompt, setCurrentPrompt] = useState(0); // The pivot for traverse the array prompts
-  const [inputValue, setInputValue] = useState('');
+function OneLine ({ prompts, onComplete }) {
+  let inputs = []; // const [inputs, setInputs] = useState([]);
+  let pivot = -1; // const [currentPrompt, setCurrentPrompt] = useState(0); // The pivot for traverse the array prompts
   const inputRef = useRef(null); // To get the input ref and focus it https://stackoverflow.com/questions/52125898/when-to-use-inputref-current-instead-of-this-inputref-react-js
 
 
-  {/* Turning this into an arrow function
-    function isEmpty() {
-      return myArray.isEmpty();
-    }
-  */}
-  const isItEmpty = () => myArray.isEmpty();
-
-
-  const isCompleted = () => currentPrompt == propmts.length;
-
-
-  const x = () => console.log('yeah');
-
-
-  {/* Turning this into an arrow function
-    function assignBaseField() {
-      myArray.push('What do you want to do?')
-    }
-  */}
+  const isEmpty = () => prompts.length == 0;
   const assignBaseField = () => prompts.push('What do you want to do?');
-
-
+  const ifEnter = (event) => event.key === 'Enter'
+  const isCompleted = () => pivot == prompts.length;
+  const setPlaceholder = () => inputRef.current.placeholder = prompts[pivot];
 
   const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
-      setInputs([...inputs, inputValue]);
-      if (isCompleted()) {
-        x();
-      }
-      setInputValue('');
-      setCurrentPrompt(currentPrompt + 1);
-      if (currentPrompt < propmts.length - 1) {
-        document.getElementById('input-field').placeholder = propmts[currentPrompt + 1];
-      } else {
-        document.getElementById('input-field').placeholder = "";
-        onComplete(inputs); // Call the onComplete callback with the entered values array
-      }
+    if (!ifEnter(event)) return;
+    if (isCompleted()) {
+      // code for api
+      // instead of this document.getElementById('input-field').placeholder = ""; just re-render the componen
+    //OneLine.rule(inputs) // call the api method
+      pivot = 0; // reset the pivot
+      prompts.length = 0; // pop all the elements of prompts
+      onComplete(inputs); // Call the onComplete callback with the entered values array
+      assignBaseField();
+      return;
     }
+
+    pivot++;
+    setPlaceholder();
   };
 
-
   useEffect(() => {
-    if (isItEmpty()) {
+    if (isEmpty()) {
       assignBaseField();
     }
 
-    document.getElementById('input-field').placeholder = propmts[currentPrompt];
+    setPlaceholder();
     inputRef.current.focus();
-  }, [currentPrompt]);
+  }, [pivot, prompts]);
 
   return (
     <>
