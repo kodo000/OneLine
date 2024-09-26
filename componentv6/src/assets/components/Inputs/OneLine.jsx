@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 
 function OneLine ({ prompts, onComplete }) {
-  const [inputs, setInputs] = useState([]); // Use state to manage inputs
-  const [pivot, setPivot] = useState(0); // Use state to manage pivot
-  const [inputValue, setInputValue] = useState(''); // Define inputValue and update it accordingly
-  const inputRef = useRef(null); // To get the input ref and focus it
+  const [inputs, setInputs] = useState([]);
+  const [pivot, setPivot] = useState(0);
+  const [inputValue, setInputValue] = useState('');
+  const inputRef = useRef(null);
 
   const isEmpty = () => prompts.length == 0;
   const assignBaseField = () => prompts.push('What do you want to do?');
@@ -15,20 +15,20 @@ function OneLine ({ prompts, onComplete }) {
   const handleKeyDown = (event) => {
     if (!isEnterKey(event)) return;
     setInputs([...inputs, inputValue]);
-    setInputValue(''); // restore the input value to ''
+    setInputValue('');
     if (isCompleted()) {
-      // code for api
-      //OneLine.rule(inputs) // call the api method
-      onComplete([...inputs, inputValue]); // Call the onComplete callback with the entered values array
+      // code for this component with api...
+      //OneLine.rule(inputs) // call the rule
+      onComplete([...inputs, inputValue]);
       
-      setPivot(0); // Reset pivot using setState
-      setInputs([]); // Reset inputs using setState
-      prompts.length = 0; // pop all the elements of prompts https://4geeks.com/how-to/javascript-array-clear
-      assignBaseField(); // Add the base field to the prompts array
+      setPivot(0);
+      setInputs([]);
+      prompts.length = 0;
+      assignBaseField();
       return;
     }
 
-    setPivot(pivot + 1); // Update pivot using setState
+    setPivot(pivot + 1);
     setPlaceholder();
   };
 
@@ -39,7 +39,7 @@ function OneLine ({ prompts, onComplete }) {
 
     setPlaceholder();
     inputRef.current.focus();
-  }, [pivot, prompts]); // Add prompts as a dependency to useEffect
+  }, [pivot, prompts]);
 
   return (
     <>
