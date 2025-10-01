@@ -1,5 +1,5 @@
 <div align="center">
-  <h3>One Line, x entries in a single field</h3>
+  <h3>One Line, n fields in a single field</h3>
 </div>
 <br><br>
 
